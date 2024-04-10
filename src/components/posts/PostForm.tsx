@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 export default function PostForm() {
   const [content, setContent] = useState<string>("");
+  const [hashtag, setHashtag] = useState<string>("");
+  const [hashtags, setHashtags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
   const handleFileUpload = () => {};
 
@@ -23,8 +25,11 @@ export default function PostForm() {
         }),
         uid: user?.uid,
         email: user?.email,
+        hashTags: hashtags,
       });
       setContent("");
+      setHashtag("");
+      setHashtags([]);
       toast.success("게시글을 생성했습니다");
     } catch (error: any) {
       toast.error(error?.code);
@@ -41,6 +46,30 @@ export default function PostForm() {
     }
   };
 
+  const onChangeHashtag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHashtag(e.target.value.trim());
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.keyCode === 32 &&
+      (e.target as HTMLInputElement).value.trim() !== ""
+    ) {
+      if (hashtags.includes((e.target as HTMLInputElement).value.trim())) {
+        toast.error("이미 존재하는 태그입니다");
+      } else {
+        setHashtags((prev) =>
+          prev.length > 0 ? [...prev, hashtag] : [hashtag]
+        );
+        setHashtag("");
+      }
+    }
+  };
+
+  const removeTag = (tag: string) => {
+    setHashtags(hashtags.filter((value) => value !== tag));
+  };
+
   return (
     <form className="post-form" onSubmit={onSubmit}>
       <textarea
@@ -52,6 +81,30 @@ export default function PostForm() {
         value={content}
         required
       />
+      <div className="post-form__hashtags">
+        <span className="post-form__hashtags-outputs">
+          {hashtags?.map((hashtag, index) => (
+            <span
+              className="post-form__hashtags-tag"
+              key={index}
+              onClick={() => {
+                removeTag(hashtag);
+              }}
+            >
+              #{hashtag}
+            </span>
+          ))}
+        </span>
+        <input
+          className="post-form__input"
+          name="hashtag"
+          id="hashtag"
+          placeholder="해시태그 + 스페이스바 입력"
+          onChange={onChangeHashtag}
+          onKeyUp={handleKeyUp}
+          value={hashtag}
+        />
+      </div>
       <div className="post-form__submit-area">
         <label htmlFor="file-input" className="post-form__file">
           <FiImage className="post-form__file-icon" />
