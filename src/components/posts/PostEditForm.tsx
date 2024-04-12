@@ -26,18 +26,23 @@ export default function PostEditForm() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleFileUpload = (e: any) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = e;
 
     const file = files?.[0];
     const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onloadend = (e: any) => {
-      const { result } = e.currentTarget;
-      setImageFile(result);
-    };
+
+    if (file) {
+      fileReader.readAsDataURL(file);
+      fileReader.onloadend = (e: ProgressEvent<FileReader>) => {
+        const { result } = e.currentTarget as FileReader;
+        if (result) {
+          setImageFile(result as string);
+        }
+      };
+    }
   };
 
   const getPost = useCallback(async () => {
