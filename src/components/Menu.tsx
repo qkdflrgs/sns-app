@@ -2,6 +2,7 @@ import { BsHouse } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdLogin, MdLogout } from "react-icons/md";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "context/AuthContext";
@@ -37,6 +38,10 @@ export default function Menu() {
         <button type="button" onClick={() => navigate("/search")}>
           <AiOutlineSearch />
           Search
+        </button>
+        <button type="button" onClick={() => navigate("/notification")}>
+          <IoMdNotificationsOutline />
+          Notification
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/user/login")}>
