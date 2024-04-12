@@ -53,7 +53,7 @@ export default function ProfilePage() {
         setLikePosts(dataObj as PostProps[]);
       });
     }
-  }, [user]);
+  }, [user, myPosts, likePosts]);
 
   return (
     <div className="home">
