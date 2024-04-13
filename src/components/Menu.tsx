@@ -9,10 +9,12 @@ import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
 
 export default function Menu() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const trans = useTranslation();
 
   const handleLogout = async () => {
     try {
@@ -29,29 +31,29 @@ export default function Menu() {
       <div className="footer__grid">
         <button type="button" onClick={() => navigate("/")}>
           <BsHouse />
-          Home
+          {trans("MENU_HOME")}
         </button>
         <button type="button" onClick={() => navigate("/profile")}>
           <BiUserCircle />
-          Profile
+          {trans("MENU_PROFILE")}
         </button>
         <button type="button" onClick={() => navigate("/search")}>
           <AiOutlineSearch />
-          Search
+          {trans("MENU_SEARCH")}
         </button>
         <button type="button" onClick={() => navigate("/notification")}>
           <IoMdNotificationsOutline />
-          Notification
+          {trans("MENU_NOTIFICATIONS")}
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/user/login")}>
             <MdLogin />
-            Login
+            {trans("MENU_LOGIN")}
           </button>
         ) : (
           <button type="button" onClick={handleLogout}>
             <MdLogout />
-            Logout
+            {trans("MENU_LOGOUT")}
           </button>
         )}
       </div>
