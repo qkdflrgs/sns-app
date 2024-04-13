@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import PostHeader from "./PostHeader";
+import useTranslation from "hooks/useTranslation";
 
 export default function PostEditForm() {
   const params = useParams();
@@ -25,6 +26,7 @@ export default function PostEditForm() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const trans = useTranslation();
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -144,7 +146,7 @@ export default function PostEditForm() {
           className="post-form__textarea"
           name="content"
           id="content"
-          placeholder="What is happening?"
+          placeholder={trans("POST_PLACEHOLDER")}
           onChange={onChange}
           value={content}
           required
@@ -167,7 +169,7 @@ export default function PostEditForm() {
             className="post-form__input"
             name="hashtag"
             id="hashtag"
-            placeholder="해시태그 + 스페이스바 입력"
+            placeholder={trans("POST_HASHTAG")}
             onChange={onChangeHashtag}
             onKeyUp={handleKeyUp}
             value={hashtag}
@@ -198,13 +200,15 @@ export default function PostEditForm() {
                   className="post-form__clear-btn"
                   type="button"
                   onClick={handleDeleteImage}
-                ></button>
+                >
+                  {trans("BUTTON_DELETE")}
+                </button>
               </div>
             )}
           </div>
           <input
             type="submit"
-            value="수정"
+            value={trans("BUTTON_EDIT")}
             className="post-form__submit-btn"
             disabled={isSubmitting}
           />

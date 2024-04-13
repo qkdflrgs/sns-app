@@ -2,6 +2,7 @@ import AuthContext from "context/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { db, storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { FormEvent, useContext, useState } from "react";
 import { FiImage } from "react-icons/fi";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ export default function PostForm() {
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
+  const trans = useTranslation();
 
   const handleFileUpload = (e: any) => {
     const {
@@ -110,7 +112,7 @@ export default function PostForm() {
         className="post-form__textarea"
         name="content"
         id="content"
-        placeholder="What is happening?"
+        placeholder={trans("POST_PLACEHOLDER")}
         onChange={onChange}
         value={content}
         required
@@ -133,7 +135,7 @@ export default function PostForm() {
           className="post-form__input"
           name="hashtag"
           id="hashtag"
-          placeholder="해시태그 + 스페이스바 입력"
+          placeholder={trans("POST_HASHTAG")}
           onChange={onChangeHashtag}
           onKeyUp={handleKeyUp}
           value={hashtag}
@@ -160,7 +162,7 @@ export default function PostForm() {
                 type="button"
                 onClick={handleDeleteImage}
               >
-                Clear
+                {trans("BUTTON_DELETE")}
               </button>
             </div>
           )}

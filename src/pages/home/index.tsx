@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { UserProps } from "components/following/FollowingBox";
+import useTranslation from "hooks/useTranslation";
 
 export interface PostProps {
   id: string;
@@ -35,6 +36,7 @@ export default function HomePage() {
   const [followingPosts, setFollowingPosts] = useState<PostProps[]>([]);
   const [followingIds, setFollowingIds] = useState<string[]>([""]);
   const { user } = useContext(AuthContext);
+  const trans = useTranslation();
 
   const getFollowingIds = useCallback(async () => {
     if (user?.uid) {
@@ -85,7 +87,7 @@ export default function HomePage() {
   return (
     <div className="home">
       <div className="home__top">
-        <div className="home__title">Home</div>
+        <div className="home__title">{trans("MENU_HOME")}</div>
         <div className="home__tabs">
           <div
             className={`home__tab ${
@@ -93,7 +95,7 @@ export default function HomePage() {
             }`}
             onClick={() => setActiveTab("all")}
           >
-            For you
+            {trans("TAB_ALL")}
           </div>
           <div
             className={`home__tab ${
@@ -101,7 +103,7 @@ export default function HomePage() {
             }`}
             onClick={() => setActiveTab("following")}
           >
-            Following
+            {trans("TAB_FOLLOWING")}
           </div>
         </div>
       </div>
@@ -112,7 +114,7 @@ export default function HomePage() {
             posts?.map((post) => <PostBox key={post.id} post={post} />)
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">게시글이 없습니다</div>
+              <div className="post__text">{trans("NO_POST")}</div>
             </div>
           )}
         </div>
@@ -123,7 +125,7 @@ export default function HomePage() {
             followingPosts?.map((post) => <PostBox key={post.id} post={post} />)
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">게시글이 없습니다</div>
+              <div className="post__text">{trans("NO_POST")}</div>
             </div>
           )}
         </div>
