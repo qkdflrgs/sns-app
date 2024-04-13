@@ -19,8 +19,12 @@
   },
   "include": ["src"],
   "path": {
-    "pages/*": ["pages/*"],
+    "atom/*": ["atom/*"],
     "components/*": ["components/*"],
+    "constants/*": ["constants/*"],
+    "context/*": ["context/*"],
+    "hooks/*": ["hooks/*"],
+    "pages/*": ["pages/*"],
     "firebaseApp/*": ["firebaseApp/*"]
   }
 }
