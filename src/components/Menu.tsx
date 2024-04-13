@@ -31,29 +31,31 @@ export default function Menu() {
       <div className="footer__grid">
         <button type="button" onClick={() => navigate("/")}>
           <BsHouse />
-          {trans("MENU_HOME")}
+          <span className="footer__grid--text">{trans("MENU_HOME")}</span>
         </button>
         <button type="button" onClick={() => navigate("/profile")}>
           <BiUserCircle />
-          {trans("MENU_PROFILE")}
+          <span className="footer__grid--text">{trans("MENU_PROFILE")}</span>
         </button>
         <button type="button" onClick={() => navigate("/search")}>
           <AiOutlineSearch />
-          {trans("MENU_SEARCH")}
+          <span className="footer__grid--text">{trans("MENU_SEARCH")}</span>
         </button>
         <button type="button" onClick={() => navigate("/notification")}>
           <IoMdNotificationsOutline />
-          {trans("MENU_NOTIFICATIONS")}
+          <span className="footer__grid--text">
+            {trans("MENU_NOTIFICATIONS")}
+          </span>
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/user/login")}>
             <MdLogin />
-            {trans("MENU_LOGIN")}
+            <span className="footer__grid--text">{trans("MENU_LOGIN")}</span>
           </button>
         ) : (
           <button type="button" onClick={handleLogout}>
             <MdLogout />
-            {trans("MENU_LOGOUT")}
+            <span className="footer__grid--text">{trans("MENU_LOGOUT")}</span>
           </button>
         )}
       </div>
