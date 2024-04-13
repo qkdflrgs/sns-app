@@ -1,18 +1,4 @@
-$background: #1e293b;
-$backgroundLight: #263340;
-$activeBackground: #3c495f5f;
-$white: #ffffff;
-$border: #708090;
-$primaryColor: #60a5fa;
-$activeBorder: #3b82f6;
-$grayText: #9ca8af;
-$danger: #dc2626;
-$dangerDark: #dc26268e;
-$gray: #6b7280;
-$grayDark: #4c515b;
-
-$font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+@import "./utils";
 
 body {
   margin: 0;
@@ -81,6 +67,10 @@ body {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     background-color: transparent;
 
+    &--text {
+      background-color: transparent;
+    }
+
     button {
       border: none;
       display: flex;
@@ -96,6 +86,56 @@ body {
         backdrop-filter: blur(10px);
       }
     }
+  }
+}
+
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
+
+  .post {
+    padding-bottom: 0;
+  }
+}
+
+@include mobile {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
   }
 }
 
